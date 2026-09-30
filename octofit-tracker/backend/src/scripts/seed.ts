@@ -10,7 +10,7 @@ import {
 
 async function seedDatabase() {
   try {
-    console.log('Seeding demo users, team, activities, leaderboard entries, and workouts...');
+    console.log('Seed the octofit_db database with test data: users, team, activities, leaderboard entries, and workouts.');
     await connectDatabase();
 
     const users = await Promise.all([
