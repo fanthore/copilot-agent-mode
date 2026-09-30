@@ -11,6 +11,7 @@ export default function Workouts() {
   return (
     <ResourcePage
       resource="workouts"
+      endpoint="/api/workouts/"
       title="Workout library"
       description="Sessions curated for a range of training levels."
       columns={columns}

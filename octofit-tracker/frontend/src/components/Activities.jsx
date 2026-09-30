@@ -18,6 +18,7 @@ export default function Activities() {
   return (
     <ResourcePage
       resource="activities"
+      endpoint="/api/activities/"
       title="Activity log"
       description="Training sessions recorded across the community."
       columns={columns}

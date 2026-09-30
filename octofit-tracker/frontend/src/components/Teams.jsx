@@ -14,6 +14,7 @@ export default function Teams() {
   return (
     <ResourcePage
       resource="teams"
+      endpoint="/api/teams/"
       title="Teams"
       description="Training groups building consistency together."
       columns={columns}

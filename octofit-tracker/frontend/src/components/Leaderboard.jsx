@@ -11,6 +11,7 @@ export default function Leaderboard() {
   return (
     <ResourcePage
       resource="leaderboard"
+      endpoint="/api/leaderboard/"
       title="Leaderboard"
       description="Points earned by athletes and teams."
       columns={columns}

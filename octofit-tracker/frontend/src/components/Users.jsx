@@ -10,6 +10,7 @@ export default function Users() {
   return (
     <ResourcePage
       resource="users"
+      endpoint="/api/users/"
       title="Athletes"
       description="People taking part in the OctoFit community."
       columns={columns}

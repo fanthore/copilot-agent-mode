@@ -40,11 +40,12 @@ function resolvePageUrl(value, requestUrl) {
   return url.toString()
 }
 
-export function getCollectionUrl(resource, pageUrl) {
+export function getCollectionUrl(endpoint, pageUrl) {
+  const apiOrigin = new URL(API_BASE_URL).origin
   const baseUrl = `${API_BASE_URL}/`
-  const url = pageUrl ? new URL(pageUrl, baseUrl) : new URL(`${resource}/`, baseUrl)
+  const url = pageUrl ? new URL(pageUrl, baseUrl) : new URL(endpoint, `${apiOrigin}/`)
 
-  if (url.origin !== new URL(API_BASE_URL).origin) {
+  if (url.origin !== apiOrigin || !url.pathname.startsWith('/api/')) {
     throw new Error('The requested page is outside the configured API host.')
   }
 
@@ -71,8 +72,8 @@ export function normalizeCollection(payload, requestUrl) {
   }
 }
 
-export async function fetchCollection(resource, pageUrl, signal) {
-  const requestUrl = getCollectionUrl(resource, pageUrl)
+export async function fetchCollection(endpoint, pageUrl, signal) {
+  const requestUrl = getCollectionUrl(endpoint, pageUrl)
   const response = await fetch(requestUrl, {
     headers: { Accept: 'application/json' },
     signal,

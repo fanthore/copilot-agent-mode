@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { API_BASE_URL, fetchCollection } from '../api.js'
+import { fetchCollection, getCollectionUrl } from '../api.js'
 
 function formatValue(value) {
   if (value === null || value === undefined || value === '') return '—'
@@ -10,7 +10,7 @@ function formatValue(value) {
   return String(value)
 }
 
-export default function ResourcePage({ resource, title, description, columns }) {
+export default function ResourcePage({ resource, endpoint, title, description, columns }) {
   const [collection, setCollection] = useState(null)
   const [error, setError] = useState('')
   const [pageUrl, setPageUrl] = useState(null)
@@ -21,17 +21,17 @@ export default function ResourcePage({ resource, title, description, columns }) 
     setCollection(null)
     setError('')
 
-    fetchCollection(resource, pageUrl, controller.signal)
+    fetchCollection(endpoint, pageUrl, controller.signal)
       .then(setCollection)
       .catch((requestError) => {
         if (!controller.signal.aborted) setError(requestError.message)
       })
 
     return () => controller.abort()
-  }, [pageUrl, reloadCount, resource])
+  }, [endpoint, pageUrl, reloadCount])
 
   const isLoading = collection === null && !error
-  const endpoint = `${API_BASE_URL}/${resource}/`
+  const endpointUrl = getCollectionUrl(endpoint)
 
   return (
     <section className="resource-page" aria-labelledby={`${resource}-title`}>
@@ -52,7 +52,7 @@ export default function ResourcePage({ resource, title, description, columns }) 
       </div>
 
       <div className="list-toolbar">
-        <span className="endpoint-label"><span>GET</span> {endpoint}</span>
+        <span className="endpoint-label"><span>GET</span> {endpointUrl}</span>
         <span>{collection ? `${collection.count} records` : isLoading ? 'Loading' : 'Unavailable'}</span>
       </div>
 
