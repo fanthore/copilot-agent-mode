@@ -1,4 +1,10 @@
 import ResourcePage from './ResourcePage.jsx'
+import { API_BASE_URL } from '../api.js'
+
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const endpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/leaderboard/`
+  : `${API_BASE_URL}/leaderboard/`
 
 const columns = [
   { key: 'rank', label: 'Rank' },
@@ -11,7 +17,7 @@ export default function Leaderboard() {
   return (
     <ResourcePage
       resource="leaderboard"
-      endpoint="/api/leaderboard/"
+      endpoint={endpoint}
       title="Leaderboard"
       description="Points earned by athletes and teams."
       columns={columns}

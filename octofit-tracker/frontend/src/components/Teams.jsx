@@ -1,4 +1,10 @@
 import ResourcePage from './ResourcePage.jsx'
+import { API_BASE_URL } from '../api.js'
+
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const endpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/teams/`
+  : `${API_BASE_URL}/teams/`
 
 const columns = [
   { key: 'name', label: 'Team' },
@@ -14,7 +20,7 @@ export default function Teams() {
   return (
     <ResourcePage
       resource="teams"
-      endpoint="/api/teams/"
+      endpoint={endpoint}
       title="Teams"
       description="Training groups building consistency together."
       columns={columns}

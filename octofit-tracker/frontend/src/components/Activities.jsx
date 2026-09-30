@@ -1,4 +1,10 @@
 import ResourcePage from './ResourcePage.jsx'
+import { API_BASE_URL } from '../api.js'
+
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const endpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/activities/`
+  : `${API_BASE_URL}/activities/`
 
 function formatDate(value) {
   if (!value) return '—'
@@ -18,7 +24,7 @@ export default function Activities() {
   return (
     <ResourcePage
       resource="activities"
-      endpoint="/api/activities/"
+      endpoint={endpoint}
       title="Activity log"
       description="Training sessions recorded across the community."
       columns={columns}
