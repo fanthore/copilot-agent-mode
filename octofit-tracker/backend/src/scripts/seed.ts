@@ -10,6 +10,7 @@ import {
 
 async function seedDatabase() {
   try {
+    console.log('Seeding demo users, team, activities, leaderboard entries, and workouts...');
     await connectDatabase();
 
     const users = await Promise.all([
